@@ -1,0 +1,584 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --background-color: #F5F5F7;
+            --text-color: #1D1D1F;
+            --text-color-light: #555;
+            --accent-color: #0071E3;
+            --card-bg-color: rgba(255, 255, 255, 0.7);
+            --border-color: rgba(0, 0, 0, 0.1);
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 600;
+        }
+        
+        section {
+            padding: 6rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        section:last-of-type {
+            border-bottom: none;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            position: fixed;
+            top: 0.5rem; /* Increased top margin for balance */
+            left: 1rem; /* Add margin on the left */
+            right: 1rem; /* Add margin on the right */
+            width: auto; /* Let left/right properties define the width */
+            z-index: 1000;
+            transition: top 0.4s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0.5rem 2rem; /* Add vertical padding */
+            border-radius: 16px; /* Rounded corners */
+            background: rgba(255, 255, 255, 0.1); /* Initial glassy background */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1); /* Floating shadow */
+            transition: background-color 0.4s ease, border-color 0.4s ease;
+        }
+        .navbar.navbar-scrolled .nav-container {
+            background: rgba(245, 245, 247, 0.8);
+            border-color: var(--border-color);
+        }
+
+        .nav-logo {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        .nav-logo img {
+            height: 35px; /* Adjust logo height */
+        }
+        .nav-logo .logo-black {
+            display: none;
+        }
+        .navbar.navbar-scrolled .nav-logo .logo-white {
+            display: none;
+        }
+        .navbar.navbar-scrolled .nav-logo .logo-black {
+            display: block;
+        }
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative; /* Required for positioning the dot */
+            padding-bottom: 6px; /* Creates space for the dot */
+        }
+        /* The dot indicator for nav links */
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px; /* Position dot slightly below the link */
+            left: 50%;
+            transform: translateX(-50%) scale(0); /* Start scaled down and invisible */
+            width: 5px;
+            height: 5px;
+            background-color: #fff;
+            border-radius: 50%;
+            opacity: 0;
+            transition: background-color 0.4s ease, opacity 0.3s ease, transform 0.3s ease;
+        }
+        /* Active state for the dot */
+        .nav-links a.active::after {
+            opacity: 1;
+            transform: translateX(-50%) scale(1); /* Scale to full size */
+        }
+        .nav-links a:hover {
+            color: rgba(255, 255, 255, 0.75);
+        }
+        .navbar.navbar-scrolled .nav-links a:not(.cta-button) {
+            color: var(--text-color);
+        }
+        .navbar.navbar-scrolled .nav-links a:not(.cta-button):hover {
+            color: var(--accent-color);
+        }
+        /* Change dot color when navbar is scrolled */
+        .navbar.navbar-scrolled .nav-links a::after {
+            background-color: var(--accent-color); /* Change color for all dots when scrolled */
+        }
+        .nav-links .cta-button {
+            color: #fff;
+            padding: 0.6rem 1.2rem;
+        }
+        .nav-links .cta-button .cta-icon {
+            display: none; /* Hide icon on desktop by default */
+        }
+        /* Keep CTA button text white on hover, regardless of scroll state */
+        .nav-links .cta-button:hover {
+            color: #fff; /* Keep text white on hover */
+            opacity: 0.9;
+            transform: scale(1.05);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            height: 100vh;
+            overflow: hidden;
+            color: #fff; /* Change text color to white for visibility */
+            border-bottom: none;
+        }
+        .hero-video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+        .hero-video-background video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            pointer-events: none;
+        }
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        .hero-fade-bottom {
+            position: absolute;
+            bottom: 0px; /* Overlap slightly to prevent rendering gaps */
+            left: 0;
+            width: 100%;
+            height: 7.5rem; /* Adjust the height of the fade effect */
+            background: linear-gradient(to bottom, transparent, #fff);
+            pointer-events: none; /* Allows clicks to pass through the element */
+        }
+        .hero h1 {
+            /* Use clamp for a fluid font size that adapts to the viewport */
+            font-size: clamp(2.5rem, 4vw + 1rem, 4rem);
+            font-weight: 700;
+            letter-spacing: -1.5px;
+            margin-bottom: 1rem;
+        }
+        .hero .cta-button {
+            background-color: #fff;
+            color: #000; /* Text must be black for the blend mode to work */
+            mix-blend-mode: screen; /* This makes black transparent and white opaque against the background */
+            transition: transform 0.3s ease, opacity 0.3s ease; /* Adjusted transition */
+        }
+        .hero .cta-button:hover {
+            background-color: #fff; /* Keep background white on hover */
+            color: #000; /* Keep text black on hover */
+            /* Inherits transform and opacity from the generic .cta-button:hover rule */
+        }
+        #changing-phrase {
+            display: inline-block;
+            white-space: nowrap; /* Prevents the phrase from wrapping onto two lines */
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out, width 0.5s ease-in-out;
+            color: rgba(255, 255, 255, 0.9);
+            will-change: opacity, transform, width; /* Performance hint for the browser */
+            text-align: center;
+        }
+        .scroll-down-indicator {
+            position: absolute;
+            bottom: 5.5rem; /* Position it just above the fade effect */
+            left: 50%;
+            color: #fff;
+            font-size: 2rem;
+            text-decoration: none;
+            z-index: 1;
+            animation: bounce 2.5s infinite;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+        .scroll-down-indicator:hover {
+            opacity: 1;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-20px);
+            }
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 0.8rem 1.8rem;
+            background-color: var(--accent-color);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            border-radius: 980px;
+            transition: transform 0.3s, opacity 0.3s, background-color 0.3s;
+        }
+        .cta-button:hover {
+            opacity: 0.9;
+            transform: scale(1.05);
+        }
+        
+        /* Featured Game Section */
+        .featured-game {
+            background-color: #fff;
+        }
+        .featured-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 4rem;
+        }
+        .featured-image {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px var(--shadow-color);
+            /* Set aspect ratio to prevent collapse. 16:9 is common for gameplay. */
+            padding-top: 56.25%; /* 9 / 16 * 100 */
+        }
+        .featured-image .slideshow-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .featured-image .slideshow-image.active {
+            opacity: 1;
+        }
+        .featured-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .featured-content p {
+            color: var(--text-color-light);
+            margin-bottom: 2rem;
+        }
+        .featured-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+        .cta-button.steam-button {
+            background-color: #1b2838; /* Steam dark color */
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .cta-button.steam-button:hover {
+            background-color: #2a475e; /* Steam hover color */
+            opacity: 1; /* Override default hover opacity */
+        }
+        .cta-button.youtube-button {
+            background-color: #ac0000; /* YouTube red */
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .cta-button.youtube-button:hover {
+            background-color: #f30000; /* Darker YouTube red */
+            opacity: 1; /* Override default hover opacity */
+        }
+        
+        /* Games Showcase */
+        .games-showcase h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .game-card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .game-card {
+            background: var(--card-bg-color);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px var(--shadow-color);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .game-card-link:hover .game-card {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px var(--shadow-color);
+        }
+        .game-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        .game-card-link:hover .game-card img {
+            transform: scale(1.05);
+        }
+        .game-card-content {
+            padding: 1.5rem;
+        }
+        .game-card-content h3 {
+            font-size: 1.5rem;
+        }
+        .game-card-content p {
+            color: var(--text-color-light);
+        }
+
+        /* Studio Section */
+        .studio {
+            text-align: center;
+        }
+        .studio h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .studio .lead {
+            max-width: 700px;
+            margin: 0 auto 4rem;
+            font-size: 1.1rem;
+            color: var(--text-color-light);
+        }
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            text-align: left;
+        }
+        .philosophy-item .icon {
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Journey / Instagram Section */
+        #journey h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Team Section */
+        #team {
+            text-align: center;
+        }
+        #team h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem 2rem; /* More vertical gap for names/roles */
+            justify-items: center;
+            max-width: 1000px; /* Constrain the grid width for better layout on wide screens */
+            margin: 0 auto;
+        }
+        .team-member-portrait {
+            position: relative;
+            width: 200px;
+            height: 250px;
+            border-radius: 24px;
+            overflow: hidden;
+            margin: 0 auto 1.5rem auto;
+            box-shadow: 0 10px 20px var(--shadow-color);
+            transition: transform 0.3s ease;
+        }
+        .team-member:hover .team-member-portrait {
+            transform: scale(1.05);
+        }
+        .team-member-portrait img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .team-member-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem 1rem 1rem 1rem;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.356) 0%, transparent 100%);
+            color: #fff;
+            text-align: left;
+        }
+        .team-member-overlay h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0;
+            line-height: 1.2;
+        }
+        .team-member-overlay p {
+            font-size: 0.85rem;
+            margin: 0;
+            line-height: 1.2;
+        }
+        .team-member > h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        .team-member > p {
+            color: var(--text-color-light);
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 4rem 0;
+            text-align: center;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            text-align: left;
+            margin-bottom: 3rem;
+        }
+        .footer-column h4 {
+            margin-bottom: 1rem;
+        }
+        .footer-column ul {
+            list-style: none;
+        }
+        .footer-column ul li a {
+            color: var(--text-color-light);
+            text-decoration: none;
+            line-height: 2;
+            transition: color 0.3s;
+        }
+        .footer-column ul li a:hover {
+            color: var(--accent-color);
+        }
+        .footer-bottom {
+            border-top: 1px solid var(--border-color);
+            padding-top: 2rem;
+            color: var(--text-muted-color);
+            font-size: 0.9rem;
+        }
+        .footer-socials {
+            margin-top: 1rem;
+        }
+        .footer-socials a {
+            color: var(--text-color-light);
+            font-size: 1.5rem;
+            margin: 0 0.5rem;
+            transition: color 0.3s;
+        }
+        .footer-socials a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Scroll Animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .fade-in-up.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Staggered animation delays for grid items */
+        .featured-image.fade-in-up { transition-delay: 0.2s; }
+        .games-grid .game-card-link:nth-child(2) { transition-delay: 0.2s; }
+        .games-grid .game-card-link:nth-child(3) { transition-delay: 0.4s; }
+        .philosophy-grid .philosophy-item:nth-child(2) { transition-delay: 0.2s; }
+        .philosophy-grid .philosophy-item:nth-child(3) { transition-delay: 0.4s; }
+        .team-grid .team-member:nth-child(2) { transition-delay: 0.1s; }
+        .team-grid .team-member:nth-child(3) { transition-delay: 0.2s; }
+        .team-grid .team-member:nth-child(4) { transition-delay: 0.3s; }
+        .team-grid .team-member:nth-child(5) { transition-delay: 0.4s; }
+
+        /* Responsive */
+        @media(max-width: 768px) {
+            .nav-links a:not(.cta-button) { 
+                display: none; 
+            }
+            .nav-links .cta-button {
+                margin-left: 0;
+                padding: 0 1rem; /* Adjust padding for a rectangular shape */
+                height: 42px;
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 18px; /* Add border-radius for rounded corners */
+            }
+            .nav-links .cta-button .cta-text { display: none; }
+            .nav-links .cta-button .cta-icon {
+                display: block;
+                font-size: 1.1rem;
+            }
+
+            .hero h1 {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0.25rem; /* Adds a small gap between the lines */
+            }
+
+            .hero p { font-size: 1.2rem; }
+            .featured-grid { grid-template-columns: 1fr; }
+            .philosophy-grid { grid-template-columns: 1fr; }
+            .team-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media(max-width: 480px) {
+            .team-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; }
+        }
